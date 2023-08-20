@@ -6,42 +6,23 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export const MyDialog = ({ dialogOpen, userData ,handleDialogClose }) => {
-    const {firstname, lastname, email} = userData
+export const MyDialog = ({ dialogOpen, fields, data ,handleDialogClose }) => {
   return (
     <div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Edit User</DialogTitle>
+        <DialogTitle>Edit</DialogTitle>
         <DialogContent>
+          {fields.map((field)=>(
           <TextField
             autoFocus
             margin="dense"
-            id="email"
-            label="Email"
-            value={email}
-            type="email"
-            fullWidth
-            variant="outlined"
-            disabled
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="firstname"
-            label="FirstName"
-            value={firstname}
+            id={field.name}
+            label={field.header}
+            value={data[field.name]}
             fullWidth
             variant="outlined"
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="lastname"
-            label="LastName"
-            value={lastname}
-            fullWidth
-            variant="outlined"
-          />
+          ))}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>Cancel</Button>

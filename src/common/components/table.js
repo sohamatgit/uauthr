@@ -31,37 +31,40 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export const MyTable = ({ rows, handleDelete, handleEdit }) => {
-
+export const MyTable = ({ rows, fields, id, handleDelete, handleEdit }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
-            <StyledTableCell align="left">Email</StyledTableCell>
-            <StyledTableCell align="left">FirstName</StyledTableCell>
-            <StyledTableCell align="left">LastName</StyledTableCell>
+            {fields.map((field) => (
+              <StyledTableCell key={field.name} align="left">
+                {field.header}
+              </StyledTableCell>
+            ))}
             <StyledTableCell align="left">Action</StyledTableCell>
           </StyledTableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <StyledTableRow
-              key={row.id}
+              key={row[id]}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <StyledTableCell align="left">{row.email}</StyledTableCell>
-              <StyledTableCell align="left">{row.firstname}</StyledTableCell>
-              <StyledTableCell align="left">{row.lastname}</StyledTableCell>
+              {fields.map((field) => (
+                <StyledTableCell align="left">
+                  {row[field.name]}
+                </StyledTableCell>
+              ))}
               <StyledTableCell align="left">
                 <EditOutlinedIcon
-                  onClick={() => handleEdit(row.id)}
+                  onClick={() => handleEdit(row[id])}
                   fontSize="small"
                   sx={{ paddingRight: 1 }}
                   color="primary"
                 />
                 <DeleteOutlinedIcon
-                  onClick={() => handleDelete(row.id)}
+                  onClick={() => handleDelete(row[id])}
                   color="error"
                   fontSize="small"
                 />

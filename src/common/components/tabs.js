@@ -5,7 +5,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { UserTable } from "../../user-manager/components/users/userPage";
-import { MyDrawer } from "./drawer";
+import { GroupTable } from "../../user-manager/components/groups/groupPage";
 
 export const Tabs = ()=> {
   const [value, setValue] = React.useState("users");
@@ -27,7 +27,7 @@ export const Tabs = ()=> {
           <UserTable />
         </TabPanel>
         <TabPanel value="groups">
-          <MyDrawer />
+          <GroupTable />
         </TabPanel>
       </TabContext>
     </Box>

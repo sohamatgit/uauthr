@@ -8,6 +8,7 @@ import { MyDrawer } from '../../../common/components/drawer';
 import { deleteUser } from '../../services/userApis';
 import Box from "@mui/material/Box";
 import { MyDialog } from '../../../common/components/dialog';
+import { UserForm } from './userForm';
 
 export const UserPage = () => {
 
@@ -21,6 +22,11 @@ export const UserPage = () => {
 
 export const UserTable = () => {
 
+  const userFields = [
+    { name: "email", header: "Email" },
+    { name: "firstname", header: "Firstname" },
+    { name: "lastname", header: "Lastname" }
+  ];
   const [drawer, setDrawer] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
   const [userData, setUserData] = React.useState({});
@@ -44,7 +50,7 @@ export const UserTable = () => {
 
   const updateUserChange = (id) => {
     handleDialogOpen();
-    const user = users.find((row) => row.id === id);
+    const user = users.find((row) => row.userId === id);
     setUserData(user);
     console.log("Edit Button Called" + id);
   };
@@ -76,10 +82,17 @@ export const UserTable = () => {
           Create User
         </Button>
       </Box>
-      <MyDrawer state={drawer} toggleFunc={toggleDrawer} />
-      <MyDialog dialogOpen={dialog} userData={userData} handleDialogClose={handleDialogClose}/>
+      <MyDrawer state={drawer} toggleFunc={toggleDrawer} form = {<UserForm/>} />
+      <MyDialog
+        fields={userFields}
+        dialogOpen={dialog}
+        data={userData}
+        handleDialogClose={handleDialogClose}
+      />
       <MyTable
+        fields={userFields}
         rows={users}
+        id="userId"
         handleDelete={deleteUserChange}
         handleEdit={updateUserChange}
         sx={{ padding: 2 }}
